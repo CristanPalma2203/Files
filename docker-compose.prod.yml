@@ -1,0 +1,14 @@
+version: '3'
+services:  
+  sapi-archivos:
+    image: pos-archivos
+    build:
+      context: .
+      dockerfile: src/WebApi/DockerfileProd
+    ports:
+        - 8083:80
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - TZ=America/Tegucigalpa
+    volumes:
+        - /data/api-archivos:/media/archivos
