@@ -10,18 +10,18 @@ namespace Dominio.Models
 
         public static string correoUsuarioAdmin = "administrador@senasa.gob.sv";
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string IdentificadorAcceso { get; set; }
+        public string Name { get; set; }
+        public string AccessIdentifier { get; set; }
 
-        public bool Activo { get; set; }
-        public string Contrasena { get; set; }
+        public bool IsActive { get; set; }
+        public string Password { get; set; }
         public int? DepartamentoId { get; set; }
-        public bool CambiarContrasena { get; set; }
+        public bool MustChangePassword { get; set; }
 
-        public DateTime? FechaRegistro { get; set; }
+        public DateTime? RegisteredAt { get; set; }
 
-        public DateTime? FechaActualizacion { get; set; }
-        public string TipoUsuario { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public string UserType { get; set; }
 
     }
 }

@@ -7,11 +7,11 @@ namespace Aplicacion.Dtos
     public class DtoArchivo: IResponse
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public DateTime? FechaRegistro { get; set; }
-        public DateTime? FechaEliminacion { get; set; }
-        public bool Activo { get; set; }
-        public string PathFisico { get; set; }
+        public string Name { get; set; }
+        public DateTime? RegisteredAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
+        public bool IsActive { get; set; }
+        public string PhysicalPath { get; set; }
         public int UsuarioId { get; set; }
     }
 }

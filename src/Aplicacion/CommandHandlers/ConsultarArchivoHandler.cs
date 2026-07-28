@@ -19,12 +19,12 @@ namespace Aplicacion.CommandHandlers
         public override IResponse Handle(ConsultarArchivo message)
         {
             var archivo = archivoRepository.GetById(message.IdArchivo);
-            var dataBytes = File.ReadAllBytes(archivo.PathFisico + "/" + archivo.Indentificador);
+            var dataBytes = File.ReadAllBytes(archivo.PhysicalPath + "/" + archivo.Identifier);
             var dataStream = new MemoryStream(dataBytes);
             DescargarArchivoDto datos = new DescargarArchivoDto
             {
                 File = dataStream,
-                FileName = archivo.Nombre,
+                FileName = archivo.Name,
                 ContentType = archivo.ContentType
             };
             return datos;

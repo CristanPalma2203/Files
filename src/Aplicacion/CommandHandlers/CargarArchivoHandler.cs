@@ -30,12 +30,12 @@ namespace Aplicacion.CommandHandlers
             string rutaAlmacenamiento = guardarArchivo.Guardar(message.File, identificador.ToString());
             Archivo archivo = new Archivo
             {
-                Nombre = message.File.FileName,
+                Name = message.File.FileName,
                 ContentType = message.File.ContentType,
-                Indentificador = identificador.ToString(),
-                PathFisico = rutaAlmacenamiento,
-                Activo = true,
-                FechaRegistro = DateTime.Now,
+                Identifier = identificador.ToString(),
+                PhysicalPath = rutaAlmacenamiento,
+                IsActive = true,
+                RegisteredAt = DateTime.Now,
                 UsuarioID = IdUsuario,
             };
             var resultado = archivoRepository.Create(archivo);
