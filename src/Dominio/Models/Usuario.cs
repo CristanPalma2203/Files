@@ -15,7 +15,7 @@ namespace Dominio.Models
 
         public bool IsActive { get; set; }
         public string Password { get; set; }
-        public int? DepartamentoId { get; set; }
+        public int? DepartmentId { get; set; }
         public bool MustChangePassword { get; set; }
 
         public DateTime? RegisteredAt { get; set; }

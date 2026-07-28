@@ -6,9 +6,9 @@ namespace Aplicacion.Dtos
 {
     public class OkResponse : IResponse
     {
-        public int Identificador{ get; set; }
+        public int Identifier{ get; set; }
         public OkResponse(int identificador) {
-            this.Identificador = identificador;
+            this.Identifier = identificador;
         }
     }
 }

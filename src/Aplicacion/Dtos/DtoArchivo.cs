@@ -12,6 +12,6 @@ namespace Aplicacion.Dtos
         public DateTime? DeletedAt { get; set; }
         public bool IsActive { get; set; }
         public string PhysicalPath { get; set; }
-        public int UsuarioId { get; set; }
+        public int UserId { get; set; }
     }
 }
