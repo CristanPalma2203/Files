@@ -1,9 +1,9 @@
-using Aplicacion.Exceptions;
-using Aplicacion.Mappers;
-using Dominio.Models.Regla;
-using Dominio.Service;
-using Infraestructura.Filters;
-using Infraestructura.Service;
+using Application.Exceptions;
+using Application.Mappers;
+using Domain.Models.Rules;
+using Domain.Service;
+using Infrastructure.Filters;
+using Infrastructure.Service;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Builder;
@@ -34,17 +34,17 @@ namespace WebApi
             services.AddHandlers();
             services.AddContextConfiguration(Configuration);
             services.AddScoped<UnitOfWordFilter>();
-            services.AddAplicacionServices();
+            services.AddApplicationServices();
             services.AddTokenConfiguration(Configuration);
             services.AddHttpContextAccessor();
             services.AddRedis(Configuration);
             services.AddCorsConfig();
             services.AddSwaggerConf();
-            services.AddTransient<IGuardarArchivoAlmacenamiento, GuardarArchivoAlmacenamiento>();
+            services.AddTransient<IFileStorageService, FileStorageService>();
 
             services.Scan(scan =>
                 scan.FromAssemblyOf<IExtensionesPermitidas>()
-                    .AddClasses(classes => classes.AssignableTo(typeof(IRegla)))
+                    .AddClasses(classes => classes.AssignableTo(typeof(IRule)))
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 

@@ -1,11 +1,11 @@
 ﻿
-using Aplicacion.Behaviors;
-using Aplicacion.CommandHandlers;
-using Aplicacion.Common;
-using Aplicacion.Dtos;
-using Aplicacion.Services.Comandos;
-using Aplicacion.Services.Validaciones;
-using Aplicacion.Validators;
+using Application.Behaviors;
+using Application.CommandHandlers;
+using Application.Common;
+using Application.Dtos;
+using Application.Services.Comandos;
+using Application.Services.Validaciones;
+using Application.Validators;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +17,7 @@ namespace WebApi.DependencyInjection
         {
             services.AddMediatR(cfg =>
             {
-                cfg.RegisterServicesFromAssembly(typeof(ConsultarArchivoHandler).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(GetFileHandler).Assembly);
             });
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
@@ -25,8 +25,8 @@ namespace WebApi.DependencyInjection
             services.AddTransient<IValidatorService, ValidatorService>();
 
             services.Scan(scan => scan
-                .FromAssemblyOf<IValidador>()
-                .AddClasses(classes => classes.AssignableTo<IValidador>())
+                .FromAssemblyOf<IValidator>()
+                .AddClasses(classes => classes.AssignableTo<IValidator>())
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
         }
