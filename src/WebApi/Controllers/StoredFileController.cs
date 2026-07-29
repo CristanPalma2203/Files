@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    // Dual prefix: StoredFile (EN) + Archivo (legacy clients / thumbs).
+    // No route Names — dual templates cannot share the same Name.
     [Route("api/[controller]")]
+    [Route("api/Archivo")]
     [ApiController]
     public class StoredFileController : ControllerBase
     {
@@ -17,7 +20,7 @@ namespace WebApi.Controllers
             this.commandBus = commandBus;
         }
 
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var archivo = (DownloadFileDto)commandBus.execute(new GetFile { IdArchivo = id });
@@ -30,7 +33,7 @@ namespace WebApi.Controllers
             return commandBus.execute(new UploadFile { File = file });
         }
 
-        [HttpPost("registro", Name = "archivoRegistro")]
+        [HttpPost("registro")]
         public IResponse SubirArchivoRegistro(IFormFile file)
         {
             return commandBus.execute(new UploadRegistrationFile { File = file });
