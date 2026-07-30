@@ -74,7 +74,7 @@ namespace WebApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Documentacion SAPI V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Corelux Files API");
             });
             app.UseCors("ApiCorsPolicy");
             app.UseEndpoints(endpoints =>

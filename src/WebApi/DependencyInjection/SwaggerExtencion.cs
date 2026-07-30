@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
@@ -16,22 +15,18 @@ namespace WebApi.DependencyInjection
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Docuemntación SAPI",
-                    Description = "Documentacion tecnica de los Endpoins que se utilizaran en el sistema",
-                   
+                    Title = "Corelux Files API",
+                    Description = "Stored file upload, download and metadata.",
                     Contact = new OpenApiContact
                     {
-                        Name = "Noe Nuñez",
+                        Name = "Corelux",
                         Email = string.Empty,
-                       
                     }
                 });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-
-          
         }
     }
 }
