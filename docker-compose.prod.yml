@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: src/WebApi/DockerfileProd
     ports:
-        - 8083:80
+        - 8083:8080
     environment:
-        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_ENVIRONMENT=Production
         - TZ=America/El_Salvador
     volumes:
         - /data/api-archivos:/media/archivos

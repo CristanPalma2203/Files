@@ -1,5 +1,7 @@
 using Application.Exceptions;
 using Application.Mappers;
+using Amazon.Runtime;
+using Amazon.S3;
 using Domain.Models.Rules;
 using Domain.Service;
 using Infrastructure.Filters;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using WebApi.DependencyInjection;
 
 namespace WebApi
@@ -40,7 +43,31 @@ namespace WebApi
             services.AddRedis(Configuration);
             services.AddCorsConfig();
             services.AddSwaggerConf();
-            services.AddTransient<IFileStorageService, FileStorageService>();
+            if (Configuration.GetValue<bool>("Storage:R2:Enabled"))
+            {
+                var serviceUrl = Configuration["Storage:R2:ServiceUrl"];
+                var accessKeyId = Configuration["Storage:R2:AccessKeyId"];
+                var secretAccessKey = Configuration["Storage:R2:SecretAccessKey"];
+
+                if (string.IsNullOrWhiteSpace(serviceUrl) ||
+                    string.IsNullOrWhiteSpace(accessKeyId) ||
+                    string.IsNullOrWhiteSpace(secretAccessKey))
+                {
+                    throw new InvalidOperationException(
+                        "R2 está habilitado, pero falta configurar ServiceUrl, AccessKeyId o SecretAccessKey.");
+                }
+
+                services.AddSingleton<IAmazonS3>(_ =>
+                    new AmazonS3Client(
+                        new BasicAWSCredentials(accessKeyId, secretAccessKey),
+                        new AmazonS3Config { ServiceURL = serviceUrl }));
+                services.AddTransient<IFileStorageService, R2FileStorageService>();
+            }
+            else
+            {
+                services.AddTransient<IFileStorageService, FileStorageService>();
+            }
+            services.AddHealthChecks();
 
             services.Scan(scan =>
                 scan.FromAssemblyOf<IExtensionesPermitidas>()
@@ -84,6 +111,7 @@ namespace WebApi
             app.UseCors("ApiCorsPolicy");
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }
