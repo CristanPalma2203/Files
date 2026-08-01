@@ -41,7 +41,7 @@ namespace WebApi
             services.AddTokenConfiguration(Configuration);
             services.AddHttpContextAccessor();
             services.AddRedis(Configuration);
-            services.AddCorsConfig();
+            services.AddCorsConfig(Configuration);
             services.AddSwaggerConf();
             if (Configuration.GetValue<bool>("Storage:R2:Enabled"))
             {
