@@ -12,5 +12,6 @@ namespace Domain.Service
     {
         string Guardar(IFormFile file, string identifier);
         string GuardarArchivoRegistro(IFormFile file, string identifier);
+        Stream AbrirLectura(string location, string identifier);
     }
 }

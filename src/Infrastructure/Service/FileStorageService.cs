@@ -34,6 +34,22 @@ namespace Infrastructure.Service
             return Save(file, identifier, RegistrationFolder);
         }
 
+        public Stream AbrirLectura(string location, string identifier)
+        {
+            var safeIdentifier = RequirePathSegment(identifier, nameof(identifier));
+            var fullPath = Path.GetFullPath(Path.Combine(location, safeIdentifier));
+            var relativePath = Path.GetRelativePath(storageRoot, fullPath);
+
+            if (relativePath == ".." ||
+                relativePath.StartsWith($"..{Path.DirectorySeparatorChar}", StringComparison.Ordinal) ||
+                Path.IsPathRooted(relativePath))
+            {
+                throw new InvalidOperationException("La ruta del archivo está fuera del almacenamiento configurado.");
+            }
+
+            return new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        }
+
         private string Save(IFormFile file, string identifier, string folder)
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
