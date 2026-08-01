@@ -69,7 +69,19 @@ namespace Infrastructure.Service
 
         private static string BuildKey(string folder, string identifier)
         {
-            return $"{RequirePathSegment(folder, nameof(folder))}/{RequirePathSegment(identifier, nameof(identifier))}";
+            return $"{RequireKeyPrefix(folder, nameof(folder))}/{RequirePathSegment(identifier, nameof(identifier))}";
+        }
+
+        private static string RequireKeyPrefix(string value, string parameterName)
+        {
+            if (string.IsNullOrWhiteSpace(value) || value.Contains("\\"))
+                throw new ArgumentException("El prefijo debe ser una ruta relativa válida.", parameterName);
+
+            var segments = value.Split('/');
+            foreach (var segment in segments)
+                RequirePathSegment(segment, parameterName);
+
+            return string.Join("/", segments);
         }
 
         private static string RequirePathSegment(string value, string parameterName)
