@@ -8,7 +8,7 @@ namespace Domain.Models
     public class AppUser : IEntity
     {
 
-        public static string adminUserEmail = "administrador@senasa.gob.sv";
+        public static string adminUserEmail = "admin";
         public int Id { get; set; }
         public string Name { get; set; }
         public string AccessIdentifier { get; set; }
