@@ -39,3 +39,6 @@ msbuild.wrn
 # Almacenamiento local de archivos (seed / uploads)
 src/WebApi/data/
 
+# Env local
+.env
+
