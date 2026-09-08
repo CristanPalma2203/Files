@@ -41,4 +41,5 @@ src/WebApi/data/
 
 # Env local
 .env
+src/WebApi/appsettings.Local.json
 
