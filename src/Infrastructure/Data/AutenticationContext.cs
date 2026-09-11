@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
+    /// <summary>Schema EF lo dueña Backend. Files no llama Database.Migrate().</summary>
     public class AutenticationContext : DbContext
     {
         public AutenticationContext(DbContextOptions<AutenticationContext> options)
