@@ -26,6 +26,8 @@ jobs:
           context: .
           file: src/WebApi/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
+          build-args: |
+            GIT_COMMIT=${{ github.sha }}
           tags: |
             ghcr.io/cristanpalma2203/corelux-files:latest
             ghcr.io/cristanpalma2203/corelux-files:${{ github.sha }}
